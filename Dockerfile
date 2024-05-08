@@ -6,4 +6,4 @@ COPY . /app
 
 EXPOSE 80
 
-CMD ["python, "app.py""]
+CMD ["python", "app.py"]
