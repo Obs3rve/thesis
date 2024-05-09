@@ -1,33 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: reddit
+  name: sample-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: reddit
+      app: sample-app
   template:
     metadata:
       labels:
-        app: reddit
+        app: sample-app
     spec:
       containers:
-      - name: reddit
-        image: chinazao/reddit:59
+      - name: sample-app
+        image: chinazao/reddit:latest
         ports:
-        - containerPort: 8080
-        imagePullPolicy: Always
+        - containerPort: 3000
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: tetris-service
+  name: sample-app
 spec:
   selector:
-    app: tetris
+    app: sample-app
   ports:
   - protocol: TCP
-    port: 8081              
-    targetPort: 8080
-  type: ClusterIP
+    port: 3000               
+    targetPort: 3000
+    type: ClusterIP
