@@ -1,39 +1,19 @@
+FROM node:10
 
-# Use the official Golang image to create a build artifact.
-# This is based on Debian and sets the GOPATH to /go.
-FROM golang:latest as builder
+# Create app directory
+WORKDIR /usr/app
 
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package*.json ./
 
+RUN npm install
+# If you are building your code for production
+# RUN npm ci --only=production
 
+# Bundle app source
+COPY . .
 
-
-ARG TARGETOS
-ARG TARGETARCH
-
-# Create and change to the app directory.
-WORKDIR /app
-
-# Retrieve application dependencies using go modules.
-# Allows container builds to reuse downloaded dependencies.
-COPY go.* ./
-RUN go mod download
-
-# Copy local code to the container image.
-COPY . ./
-
-# Build the binary.
-# -mod=readonly ensures immutable go.mod and go.sum in container builds.
-RUN CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -mod=readonly -v -o server
-
-# Use the official Alpine image for a lean production container.
-# https://hub.docker.com/_/alpine
-# https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-stage-builds
-FROM alpine:latest
-RUN apk add --no-cache ca-certificates
-
-# Copy the binary to the production image from the builder stage.
-COPY --from=builder /app/server /server
-
-# Run the web service on container startup.
-CMD ["/server"]
-
+EXPOSE 8080
+CMD [ "node", "server.js" ]
