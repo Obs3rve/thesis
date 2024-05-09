@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: reddit
-        image: chinazao/reddit:58
+        image: chinazao/reddit:59
         ports:
         - containerPort: 8080
         imagePullPolicy: Always
