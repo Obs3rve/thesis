@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: sample-app
-        image: chinazao/reddit:latest
+        image: chinazao/reddit:62
         ports:
         - containerPort: 3000
 ---
