@@ -1,11 +1,11 @@
 ## thesis
 
-Sample Node.js app built with docker, scanned with trivy and pushed to Kubernetes cluster running on multiple raspberry pis
+Sample Node.js app built with docker, scanned with trivy and pushed to Kubernetes cluster running on multiple Raspberry Pis
 
 Dump
 
 Jenkins
-http://192.168.1.101:32000
+http://192.168.1.101:8080
 Pod
 https://192.168.1.101:6443
 
